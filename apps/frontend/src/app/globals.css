@@ -1,0 +1,730 @@
+/*
+SOC-CyBe Security Platform
+Module: Global Dashboard Styles
+
+Purpose:
+This stylesheet defines the visual language of the SOC dashboard: color
+system, layout primitives, charts, panels, monitoring cards, and cyber-themed
+background treatments.
+
+Design Notes:
+- Colors prioritize contrast and operational readability over decorative flair.
+- Panels use consistent spacing and borders so dense information still feels
+  organized.
+*/
+
+:root {
+  --bg: #07111a;
+  --bg-soft: rgba(10, 23, 34, 0.72);
+  --panel: rgba(9, 22, 34, 0.84);
+  --panel-border: rgba(88, 180, 255, 0.16);
+  --text: #e8fbff;
+  --muted: #89a8b8;
+  --accent: #52f2d7;
+  --accent-strong: #8cf8ff;
+  --danger: #ff5678;
+  --warn: #ff9c54;
+  --medium: #ffd166;
+  --grid: rgba(95, 198, 255, 0.09);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background:
+    radial-gradient(circle at top, rgba(0, 204, 255, 0.12), transparent 30%),
+    linear-gradient(180deg, #02070d 0%, #07111a 50%, #02060b 100%);
+  color: var(--text);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-mono), monospace;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 56px 56px;
+  overflow-x: hidden;
+}
+
+.terminalRain {
+  /* The background animation stays subtle so it adds atmosphere without
+     competing with operational content. */
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.16;
+}
+
+.terminalRain__column {
+  position: absolute;
+  top: -20%;
+  font-size: 0.72rem;
+  color: var(--accent);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  animation-name: rainfall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes rainfall {
+  from {
+    transform: translateY(-15%);
+  }
+  to {
+    transform: translateY(140vh);
+  }
+}
+
+.shell {
+  position: relative;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 40px 20px 72px;
+}
+
+.hero,
+.metricsGrid,
+.contentGrid {
+  position: relative;
+  z-index: 1;
+}
+
+.hero {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1.35fr 1fr;
+  align-items: end;
+  margin-bottom: 24px;
+}
+
+.eyebrow,
+.panelLabel,
+.sectionHeading span,
+.metricDelta {
+  color: var(--accent-strong);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+}
+
+h1,
+h2,
+strong {
+  font-family: var(--font-heading), sans-serif;
+}
+
+h1 {
+  margin: 0 0 16px;
+  font-size: clamp(3rem, 8vw, 6.6rem);
+  line-height: 0.92;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.heroCopy,
+.panel p,
+.listRow span {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.heroGrid,
+.metricsGrid,
+.contentGrid,
+.monitorGrid,
+.sourceGrid {
+  display: grid;
+  gap: 18px;
+}
+
+.metricsGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: 18px;
+}
+
+.contentGrid {
+  grid-template-columns: 1.2fr 0.8fr 0.8fr;
+}
+
+.monitorGrid {
+  grid-template-columns: 1.5fr 0.5fr;
+  margin-bottom: 18px;
+}
+
+.sourceGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: 18px;
+}
+
+.panel {
+  /* Panels are the dashboard's primary containment unit. Keeping them visually
+     consistent helps analysts scan different data types quickly. */
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 22px;
+  padding: 20px;
+  backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 24px 60px rgba(0, 0, 0, 0.28);
+}
+
+.panel--glow {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    0 0 0 1px rgba(82, 242, 215, 0.1),
+    0 24px 60px rgba(0, 0, 0, 0.28),
+    0 0 90px rgba(82, 242, 215, 0.08);
+}
+
+.panel--wide {
+  grid-column: span 2;
+}
+
+.authPanel {
+  align-self: stretch;
+}
+
+.formGrid {
+  display: grid;
+  gap: 14px;
+}
+
+.formGrid--wide {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 18px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field span {
+  color: var(--accent-strong);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  border: 1px solid rgba(82, 242, 215, 0.12);
+  border-radius: 14px;
+  padding: 12px 14px;
+  background: rgba(3, 10, 15, 0.86);
+  color: var(--text);
+  font: inherit;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  outline: 1px solid rgba(140, 248, 255, 0.55);
+  border-color: rgba(140, 248, 255, 0.4);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 96px;
+}
+
+.field--full {
+  grid-column: 1 / -1;
+}
+
+.buttonRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.actionButton {
+  border: 1px solid rgba(82, 242, 215, 0.2);
+  border-radius: 999px;
+  padding: 11px 16px;
+  background: linear-gradient(135deg, rgba(82, 242, 215, 0.18), rgba(140, 248, 255, 0.08));
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+}
+
+.actionButton:hover:enabled {
+  transform: translateY(-1px);
+  border-color: rgba(140, 248, 255, 0.32);
+}
+
+.actionButton:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+
+.actionButton--ghost {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.statusLine {
+  margin: 12px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.buttonCard {
+  width: 100%;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+}
+
+.buttonCard:hover {
+  border-color: rgba(140, 248, 255, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.buttonCard strong,
+.buttonCard span {
+  text-align: left;
+}
+
+.detailBlock {
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.listRow--rule {
+  align-items: flex-start;
+}
+
+.deviceGrid--single {
+  grid-template-columns: 1fr;
+}
+
+.graphBoard {
+  position: relative;
+  min-height: 320px;
+  margin-bottom: 18px;
+  border-radius: 18px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at center, rgba(82, 242, 215, 0.08), transparent 58%),
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: auto, 100% 40px, 40px 100%;
+}
+
+.graphNode {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: grid;
+  gap: 4px;
+  min-width: 120px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(82, 242, 215, 0.18);
+  background: rgba(7, 17, 26, 0.92);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.graphNode strong {
+  font-size: 0.9rem;
+}
+
+.graphNode span {
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.contentSplit {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.pipelineRail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.pipelineChip {
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(82, 242, 215, 0.16);
+  background: rgba(82, 242, 215, 0.08);
+  color: var(--accent-strong);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sourceCard strong {
+  display: block;
+  margin: 10px 0 8px;
+  font-size: 1rem;
+}
+
+.chartWrap {
+  display: grid;
+  gap: 10px;
+}
+
+.chartSvg {
+  /* The chart background includes a light grid because SOC users often look
+     for pattern shifts rather than exact numeric chart labels. */
+  width: 100%;
+  height: 170px;
+  border-radius: 18px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    radial-gradient(circle at top, rgba(82, 242, 215, 0.08), transparent 50%);
+  background-size: 100% 34px, 34px 100%, auto;
+  padding: 8px;
+}
+
+.chartLine {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.chartLine--threats {
+  stroke: #8cf8ff;
+}
+
+.chartLine--api {
+  stroke: #ff9c54;
+}
+
+.chartLine--auth {
+  stroke: #52f2d7;
+}
+
+.chartLegend,
+.chartAxis {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.legendItem {
+  position: relative;
+  padding-left: 14px;
+}
+
+.legendItem::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  transform: translateY(-50%);
+}
+
+.legendItem--threats::before {
+  background: #8cf8ff;
+}
+
+.legendItem--api::before {
+  background: #ff9c54;
+}
+
+.legendItem--auth::before {
+  background: #52f2d7;
+}
+
+.counterStack {
+  display: grid;
+  gap: 10px;
+}
+
+.counterRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.counterRow:last-child {
+  border-bottom: 0;
+}
+
+.counterRow strong {
+  font-size: 2rem;
+}
+
+.metricCard strong {
+  display: block;
+  margin: 12px 0 8px;
+  font-size: 2.4rem;
+}
+
+.sectionHeading {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: baseline;
+  margin-bottom: 16px;
+}
+
+.stack {
+  display: grid;
+  gap: 12px;
+}
+
+.listRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.listRow strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 1rem;
+}
+
+.listRow--compact {
+  align-items: start;
+  flex-direction: column;
+}
+
+.severity {
+  display: inline-flex;
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+}
+
+.severity--critical {
+  background: rgba(255, 86, 120, 0.18);
+  color: var(--danger);
+}
+
+.severity--high {
+  background: rgba(255, 156, 84, 0.18);
+  color: var(--warn);
+}
+
+.severity--medium {
+  background: rgba(255, 209, 102, 0.18);
+  color: var(--medium);
+}
+
+.severity--low {
+  background: rgba(82, 242, 215, 0.16);
+  color: var(--accent);
+}
+
+.terminalBox {
+  border-radius: 18px;
+  padding: 16px;
+  min-height: 220px;
+  background: #02070d;
+  border: 1px solid rgba(82, 242, 215, 0.16);
+  color: var(--accent);
+  line-height: 1.8;
+}
+
+.networkMap {
+  /* The threat mesh panel is illustrative rather than geospatially precise.
+     It gives the dashboard a quick visual "system activity" anchor. */
+  position: relative;
+  min-height: 260px;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at center, rgba(82, 242, 215, 0.06), transparent 60%),
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: auto, 100% 38px, 38px 100%;
+  overflow: hidden;
+}
+
+.networkNode {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(9, 22, 34, 0.92);
+  box-shadow: 0 0 24px rgba(82, 242, 215, 0.12);
+}
+
+.networkNode span {
+  color: var(--text);
+  font-size: 0.78rem;
+}
+
+.networkNode--critical {
+  box-shadow: 0 0 30px rgba(255, 86, 120, 0.28);
+}
+
+.networkNode--high {
+  box-shadow: 0 0 30px rgba(255, 156, 84, 0.22);
+}
+
+.distributionStack,
+.deviceGrid {
+  display: grid;
+  gap: 12px;
+}
+
+.distributionRow {
+  display: grid;
+  gap: 8px;
+}
+
+.distributionMeta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+}
+
+.distributionBar {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.distributionBar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #52f2d7 0%, #8cf8ff 100%);
+}
+
+.deviceGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.deviceCard {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.statsStrip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.statChip {
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(82, 242, 215, 0.06);
+  border: 1px solid rgba(82, 242, 215, 0.12);
+}
+
+.statChip strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 1.6rem;
+}
+
+.workflowRail {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.workflowStep {
+  padding: 12px 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.02);
+  text-align: center;
+}
+
+.workflowStep--active {
+  border-color: rgba(82, 242, 215, 0.2);
+  color: var(--text);
+  background: rgba(82, 242, 215, 0.08);
+}
+
+@media (max-width: 1100px) {
+  .hero,
+  .contentGrid,
+  .metricsGrid,
+  .monitorGrid,
+  .sourceGrid,
+  .deviceGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .contentSplit {
+    grid-template-columns: 1fr;
+  }
+
+  .panel--wide {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 720px) {
+  .shell {
+    padding: 24px 14px 48px;
+  }
+
+  .hero,
+  .contentGrid,
+  .metricsGrid,
+  .monitorGrid,
+  .sourceGrid,
+  .heroGrid,
+  .formGrid--wide,
+  .contentSplit,
+  .statsStrip,
+  .workflowRail,
+  .deviceGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .panel--wide {
+    grid-column: span 1;
+  }
+
+  .sectionHeading,
+  .listRow {
+    flex-direction: column;
+    align-items: start;
+  }
+}

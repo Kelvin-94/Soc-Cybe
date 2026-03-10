@@ -1,0 +1,13 @@
+{
+  "name": "soc-cybe",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/frontend"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace frontend",
+    "build": "npm run build --workspace frontend",
+    "lint": "npm run lint --workspace frontend"
+  }
+}

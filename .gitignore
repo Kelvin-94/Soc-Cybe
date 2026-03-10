@@ -1,0 +1,13 @@
+.next
+node_modules
+.venv
+__pycache__
+.pytest_cache
+.mypy_cache
+dist
+build
+.env
+.env.local
+apps/backend/.env
+apps/frontend/.env.local
+coverage

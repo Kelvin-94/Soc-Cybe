@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: soc-cybe-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: soc_cybe_db
+      POSTGRES_USER: soc_cybe
+      POSTGRES_PASSWORD: soc_cybe_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infrastructure/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+volumes:
+  postgres_data:
